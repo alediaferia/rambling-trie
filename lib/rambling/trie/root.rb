@@ -32,8 +32,6 @@ module Rambling
         is? :partial_word, word
       end
 
-      alias_method :match?, :partial_word?
-
       # If the current node is the root node.
       # @return [Boolean] `true`
       def root?
@@ -46,8 +44,6 @@ module Rambling
       def word? word = ''
         is? :word, word
       end
-
-      alias_method :include?, :word?
 
       private
 

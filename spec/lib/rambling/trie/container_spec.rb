@@ -27,7 +27,7 @@ describe Rambling::Trie::Container do
     end
   end
 
-  describe 'delegated methods' do
+  describe 'delegates and aliases' do
     let(:container) { Rambling::Trie::Container.new }
     let(:root) do
       double :root,
@@ -35,9 +35,7 @@ describe Rambling::Trie::Container do
         :<< => nil,
         each: nil,
         word?: nil,
-        include?: nil,
         partial_word?: nil,
-        match?: nil,
         compress!: nil,
         compressed?: nil
     end
@@ -45,6 +43,16 @@ describe Rambling::Trie::Container do
     before do
       allow(Rambling::Trie::Root).to receive(:new)
         .and_return root
+    end
+
+    it 'aliases `#include?` to `#word?`' do
+      container.include? 'words'
+      expect(root).to have_received(:word?).with 'words'
+    end
+
+    it 'aliases `#match?` to `#partial_word?`' do
+      container.match? 'words'
+      expect(root).to have_received(:partial_word?).with 'words'
     end
 
     it 'delegates `#<<` to the root node' do
@@ -67,19 +75,9 @@ describe Rambling::Trie::Container do
       expect(root).to have_received(:word?).with 'words'
     end
 
-    it 'delegates `#include?` to the root node' do
-      container.include? 'words'
-      expect(root).to have_received(:include?).with 'words'
-    end
-
     it 'delegates `#partial_word?` to the root node' do
       container.partial_word? 'words'
       expect(root).to have_received(:partial_word?).with 'words'
-    end
-
-    it 'delegates `#match?` to the root node' do
-      container.match? 'words'
-      expect(root).to have_received(:match?).with 'words'
     end
 
     it 'delegates `#compress!` to the root node' do

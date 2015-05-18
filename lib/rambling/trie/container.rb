@@ -25,6 +25,9 @@ module Rambling
         yield self if block_given?
       end
 
+      alias_method :include?, :word?
+      alias_method :match?, :partial_word?
+
       private
 
       attr_reader :root
