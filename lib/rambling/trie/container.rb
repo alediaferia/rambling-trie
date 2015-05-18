@@ -8,7 +8,6 @@ module Rambling
       delegate [
         :each,
         :add,
-        :<<,
         :word?,
         :include?,
         :partial_word?,
@@ -27,6 +26,7 @@ module Rambling
 
       alias_method :include?, :word?
       alias_method :match?, :partial_word?
+      alias_method :<<, :add
 
       private
 
