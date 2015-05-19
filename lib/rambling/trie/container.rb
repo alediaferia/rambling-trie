@@ -17,9 +17,10 @@ module Rambling
       ] => :root
 
       # Creates a new Trie.
+      # @param [Root] the root node for the trie
       # @yield [Container] the trie just created.
-      def initialize
-        @root = Rambling::Trie::Root.new
+      def initialize root = nil
+        @root = root || default_root
 
         yield self if block_given?
       end
@@ -41,6 +42,10 @@ module Rambling
       private
 
       attr_reader :root
+
+      def default_root
+        Rambling::Trie::Root.new
+      end
     end
   end
 end
